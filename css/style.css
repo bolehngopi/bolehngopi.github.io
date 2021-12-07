@@ -1,5 +1,8 @@
 .jumbroton {
   padding-top: 2rem;
   background-color: #e2edff;
-  padding: 0;
+}
+
+.jumbroton svg {
+  margin: 0;
 }
