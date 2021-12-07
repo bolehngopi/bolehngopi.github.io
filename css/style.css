@@ -1,7 +1,4 @@
-.jumbroton {
-  padding-top: 2rem;
+.jumbotron {
+  padding-top: 1rem;
   background-color: #e2edff;
-}
-svg {
-  margin: 0;
 }
