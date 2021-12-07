@@ -1,11 +1,13 @@
+<<<<<<< HEAD
 body {
   min-height: 2000px;
 }
 
+=======
+>>>>>>> a3fe82dab306506126cc1e2f6eeaa75100bc4b64
 .jumbotron {
   padding-top: 2rem 0 0 !important;
   background-color: #e2edff;
-  padding: 0;
 }
 
 #projects {
