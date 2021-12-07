@@ -1,5 +1,13 @@
-.jumbroton {
-  padding-top: 2rem;
+body {
+  min-height: 2000px;
+}
+
+.jumbotron {
+  padding-top: 2rem 0 0 !important;
   background-color: #e2edff;
   padding: 0;
+}
+
+#projects {
+  background-color: #e2edff;
 }
