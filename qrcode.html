@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>QRCode Generator - Azikhasyi11 Project</title>
+    <title>QRCode Generator - Azizkhasyi11 Project</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,20 +10,28 @@
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div class="flex flex-column align-items-center justify-content-center">
-        <canvas width="100" height="100" class="border border-2 solid border-light"></canvas> input
-        <input placeholder="https://example.com" id="qrInput" type="text" onchange="generateQR()">
+    <div class="canvasDiv">
+        <canvas width=" 100 " height="100 " class="qrcodecanvas rounded-1 m-2" id="canvas"></canvas>
+        <!-- Make a bootstrap input-->
+        <div class="input-group m-3">
+            <input type="text" class="form-control" placeholder="https://google.com" id="qrInput" aria-describedby="inputGroup-sizing-sm">
+            <button type="button" class="btn btn-primary btn-sm" onclick="generateQR()">Generate QRCode</button>
+        </div>
     </div>
-    <!-- QRCode Module -->
-    <script scr="node_modules/qrcode/build/qrcode.js"></script>
-
-    <!-- QRCode Functions -->
+    <script src="node_modules/qrcode/build/qrcode.js"></script>
     <script>
         function generateQR() {
-            console.log("Generating")
+            let canvas = document.getElementById("canvas")
+            let qrInput = document.getElementById("qrInput")
+            QRCode.toCanvas(canvas, qrInput.value, (err) => {
+                if (err) console.error(err)
+                console.log('QRCode successfully generated!')
+            })
         }
     </script>
 

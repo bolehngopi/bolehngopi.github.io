@@ -1,16 +1,27 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .jumbotron {
-  padding: 6rem 0 0 !important;
-  background-color: #e2edff;
+    padding: 6rem 0 0 !important;
+    background-color: #e2edff;
 }
 
 #projects {
-  background-color: #e2edff;
+    background-color: #e2edff;
 }
 
 section {
-  padding-top: 5rem;
+    padding-top: 5rem;
+}
+
+.canvasDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrcodecanvas {
+    border: 2px solid black;
 }
