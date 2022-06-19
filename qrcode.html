@@ -20,17 +20,18 @@
 <body>
     <div class="canvasDiv">
         <h1 class="title text-success">QRCode Generator Project</h1>
-        </canvas>
+        <canvas width=" 100 " height="100 " class="qrcodecanvas rounded-1 m-2" id="canvas">
+            </canvas>
         <!-- Make a bootstrap input-->
-        <div class=" input-group m-3 ">
-            <input type="text " class="form-control " placeholder="https://google.com " id="qrInput " aria-describedby="inputGroup-sizing-sm ">
-            <button type="button " class="btn btn-primary btn-sm " onclick="generateQR() ">Generate QRCode</button>
+        <div class="input-group m-3">
+            <input type="text" class="form-control" placeholder="https://google.com" id="qrInput" aria-describedby="inputGroup-sizing-sm">
+            <button type="button" class="btn btn-primary btn-sm" onclick="generateQR()">Generate QRCode</button>
         </div>
     </div>
     <script>
         function generateQR() {
-            let canvas = document.getElementById("canvas ")
-            let qrInput = document.getElementById("qrInput ")
+            let canvas = document.getElementById("canvas")
+            let qrInput = document.getElementById("qrInput")
             QRCode.toCanvas(canvas, qrInput.value, (err) => {
                 if (err) console.error(err)
                 console.log('QRCode successfully generated!')
