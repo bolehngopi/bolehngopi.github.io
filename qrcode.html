@@ -88,18 +88,31 @@
         </div>
     </nav>
     <!-- Navbar end -->
-    <div class="canvasDiv">
-        <h1 class="title text-success">QRCode Generator Project</h1>
-        <canvas width=" 100 " height="100 " class="qrcodecanvas rounded-1 m-2" id="canvas">
-      </canvas>
-        <!-- Make a bootstrap input-->
-        <div class="input-group m-3">
-            <input type="text" class="form-control" placeholder="https://google.com" id="qrInput" aria-describedby="inputGroup-sizing-sm" />
-            <button type="button" class="btn btn-primary btn-sm" onclick="generateQR()">
-          Generate QRCode
-        </button>
+
+    <section>
+        <div class="canvasDiv">
+            <h1 class="title text-success">QRCode Generator Project</h1>
+            <canvas width=" 100 " height="100 " class="qrcodecanvas rounded-1 m-2" id="canvas"></canvas>
+            <!-- Make a bootstrap input-->
+            <div class="input-group m-3">
+                <input type="text" class="form-control" placeholder="https://google.com" id="qrInput" aria-describedby="inputGroup-sizing-sm" />
+                <button type="button" class="btn btn-primary btn-sm" onclick="generateQR()">
+                  Generate QRCode
+                </button>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-center text-white pb-5">
+        <p>
+            Created with <i class="bi bi-heart-fill text-danger"></i> by
+            <a href="https://github.com/Azizkhasyi11" class="text-white fw-bold">Azizkhasyi11</a
+        >
+      </p>
+    </footer>
+    <!-- End Footer -->
+
     <script>
         function generateQR() {
             let canvas = document.getElementById("canvas");
