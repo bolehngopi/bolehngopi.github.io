@@ -25,3 +25,9 @@ section {
 .qrcodecanvas {
     border: 2px solid black;
 }
+
+footer {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+}
