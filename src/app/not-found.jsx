@@ -14,7 +14,7 @@ export default function NotFound() {
         className="flex items-center gap-2 bg-blue-600 px-6 py-2 text-lg rounded-lg hover:bg-blue-700 transition"
       >
         <FaHome />
-        Back to Homepage
+        Back to Home
       </Link>
     </div>
   )
