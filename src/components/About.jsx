@@ -6,7 +6,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="min-h-screen py-16 px-6 bg-white text-black dark:bg-black dark:text-white flex items-center justify-center"
+      className="min-h-screen py-16 px-6 bg-black text-white flex items-center justify-center"
     >
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8">
         {/* Left Side: Title and Social Links */}

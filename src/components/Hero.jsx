@@ -1,10 +1,74 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Suspense, useEffect, useState, useRef } from "react";
 import { FaGithub, FaLinkedin, FaArrowDown } from "react-icons/fa";
 import ShirokoCanvas from "./ShirokoCanvas";
+import * as THREE from "three";
+
+// Starry Background Component with Full 360° Distribution and Random Colors
+const Stars = () => {
+  const points = useRef();
+
+  // Generate stars in a spherical 360° distribution
+  const [positions] = useState(() => {
+    const temp = [];
+    const numStars = 500; // Adjust the number of stars as needed
+
+    for (let i = 0; i < numStars; i++) {
+      const radius = 100; // Adjust the radius of the sphere
+      const theta = Math.random() * Math.PI * 2; // Random angle around the sphere
+      const phi = Math.acos((Math.random() * 2) - 1); // Random polar angle
+
+      const x = radius * Math.sin(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi) * Math.sin(theta);
+      const z = radius * Math.cos(phi);
+
+      temp.push(x, y, z);
+    }
+    return new Float32Array(temp);
+  });
+
+  const [colors] = useState(() => {
+    const colorArray = [];
+    for (let i = 0; i < 500; i++) {
+      const color = new THREE.Color(`hsl(${Math.random() * 360}, 100%, 75%)`); // Random pastel colors
+      colorArray.push(color.r, color.g, color.b);
+    }
+    return new Float32Array(colorArray);
+  });
+
+  useFrame(({ clock }) => {
+    const elapsed = clock.getElapsedTime();
+    points.current.rotation.x = elapsed * 0.05;
+    points.current.rotation.y = elapsed * 0.05;
+  });
+
+  return (
+    <points ref={points}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          array={positions}
+          itemSize={3}
+          count={positions.length / 3}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          array={colors}
+          itemSize={3}
+          count={colors.length / 3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        vertexColors
+        size={1} // Adjust the size of stars
+        sizeAttenuation
+      />
+    </points>
+  );
+};
 
 const Hero = () => {
   const [text, setText] = useState("");
@@ -43,10 +107,10 @@ const Hero = () => {
           {/* Lighting */}
           <ambientLight intensity={1} />
           <pointLight position={[10, 10, 10]} />
-          {/* <pointLight position={[10, 20, 10]} /> */}
 
-          {/* 3D Object */}
+          {/* Particle System (Stars) */}
           <Suspense fallback={null}>
+            <Stars />
             <ShirokoCanvas />
           </Suspense>
 
@@ -66,14 +130,6 @@ const Hero = () => {
           <span className="animate-blink">|</span>
         </h2>
       </div>
-
-      {/* Scroll Down Button */}
-      {/* <a
-        href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white text-xl animate-bounce z-10"
-      >
-        Scroll Down <FaArrowDown />
-      </a> */}
     </section>
   );
 };

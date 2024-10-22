@@ -1,7 +1,6 @@
 "use client";
 
 const Contact = () => {
-
   const formAction = (data) => {
     const formValue = Object.fromEntries(data);
 
@@ -11,9 +10,29 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-black py-16 px-4 md:px-8 text-white flex flex-col items-center justify-center"
+      className="min-h-screen relative bg-black py-16 px-4 md:px-8 text-white flex flex-col items-center justify-center overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-gray-900 to-black opacity-80"></div>
+
+        {/* Glowing circles */}
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-blue-600 opacity-30 blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 rounded-full bg-pink-500 opacity-30 blur-2xl"></div>
+
+        {/* Floating particles */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="w-2 h-2 bg-white opacity-20 rounded-full absolute animate-pulse" style={{ bottom: '10%', left: '20%' }}></div>
+          <div className="w-3 h-3 bg-white opacity-10 rounded-full absolute animate-ping" style={{ bottom: '15%', left: '40%' }}></div>
+          <div className="w-1 h-1 bg-white opacity-25 rounded-full absolute animate-pulse" style={{ bottom: '5%', left: '70%' }}></div>
+          <div className="w-2 h-2 bg-white opacity-10 rounded-full absolute animate-ping" style={{ bottom: '20%', right: '30%' }}></div>
+          {/* Add more particles as needed */}
+        </div>
+      </div>
+
+      {/* Content Overlay */}
+      <div className="relative z-10 max-w-4xl mx-auto">
         <h2 className="text-4xl font-extrabold text-center mb-12 tracking-wider">
           Get in Touch
         </h2>
@@ -27,7 +46,7 @@ const Contact = () => {
             <div className="space-y-6">
               <div>
                 <label className="block text-lg font-semibold mb-2" htmlFor="name">
-                  Name
+                  Name <span className="text-gray-500 text-sm">(Optional)</span>
                 </label>
                 <input
                   type="text"
@@ -35,13 +54,12 @@ const Contact = () => {
                   name="name"
                   placeholder="Enter your name"
                   className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all"
-                  required
                 />
               </div>
 
               <div>
                 <label className="block text-lg font-semibold mb-2" htmlFor="email">
-                  Email
+                  Email <span className="text-gray-500 text-sm">(Optional)</span>
                 </label>
                 <input
                   type="email"
@@ -49,13 +67,12 @@ const Contact = () => {
                   name="email"
                   placeholder="Enter your email"
                   className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all"
-                  required
                 />
               </div>
 
               <div>
                 <label className="block text-lg font-semibold mb-2" htmlFor="message">
-                  Message
+                  Message <span className="text-red-600">*</span>
                 </label>
                 <textarea
                   id="message"
