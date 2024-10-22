@@ -121,14 +121,24 @@ const Hero = () => {
 
       {/* Hero Content Overlay */}
       <div className="relative z-10 flex flex-col items-center gap-6 select-none">
-        <h1 className="text-4xl md:text-6xl font-bold text-white">
-          Hi, I am <span className="text-primary">Aziz Khasyi</span>
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white">
+          Hi, I&apos;m{" "}
+          <span className="text-primary animate-glow">Aziz Khasyi</span>
         </h1>
 
         <h2 className="text-2xl md:text-3xl text-secondary mt-2 h-8 text-white/70">
           {text}
           <span className="animate-blink">|</span>
         </h2>
+
+        {/* Animated Down Arrow CTA */}
+        <a
+          href="#about"
+          className="text-white mt-10 text-4xl animate-bounce"
+          aria-label="Scroll Down"
+        >
+          <FaArrowDown />
+        </a>
       </div>
     </section>
   );

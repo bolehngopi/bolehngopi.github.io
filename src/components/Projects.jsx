@@ -18,11 +18,19 @@ const Projects = () => {
         {projects.map((project, index) => (
           <PinContainer key={index} title={project.title}>
             <div className="w-full h-full p-2 flex flex-col justify-between rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <img
-                src={project.preview}
-                alt={project.title}
-                className="w-full h-56 object-cover rounded-lg mb-4 shadow-lg"
-              />
+              {/* Project Image or Placeholder */}
+              {project.preview ? (
+                <img
+                  src={project.preview}
+                  alt={project.title}
+                  className="w-full h-56 object-cover rounded-lg mb-4 shadow-lg"
+                />
+              ) : (
+                <div className="w-full h-56 flex items-center justify-center bg-gray-700 rounded-lg mb-4 shadow-lg">
+                  <span className="text-gray-400">No Image Available</span>
+                </div>
+              )}
+
               <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
 
               <p className="text-gray-200 mb-4 line-clamp-3 overflow-hidden max-h-16">
@@ -52,6 +60,7 @@ const Projects = () => {
 
 export default Projects;
 
+// PinContainer Component
 export const PinContainer = ({
   children,
   title,

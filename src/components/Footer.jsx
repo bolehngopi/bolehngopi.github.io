@@ -1,6 +1,7 @@
 "use client";
 
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -16,7 +17,7 @@ const Footer = () => {
         {/* Social Links */}
         <div className="flex gap-6">
           <a
-            href="https://github.com/azizkhasyi11"
+            href="https://github.com/bolehngopi"
             target="_blank"
             rel="noopener noreferrer"
             className="text-2xl hover:text-primary transition-all duration-300"
@@ -37,7 +38,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-2xl hover:text-primary transition-all duration-300"
           >
-            <FaTwitter />
+            <FaXTwitter />
           </a>
         </div>
       </div>
