@@ -3,6 +3,7 @@
 import { FaArrowRight, FaGithub } from "react-icons/fa";
 import { useState } from "react";
 import { projects } from "@/data"; // Assuming you have the project data in /data
+import { motion } from "framer-motion"; // Import Framer Motion
 
 const Projects = () => {
   return (
@@ -16,42 +17,49 @@ const Projects = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-6xl">
         {projects.map((project, index) => (
-          <PinContainer key={index} title={project.title}>
-            <div className="w-full h-full p-2 flex flex-col justify-between rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              {/* Project Image or Placeholder */}
-              {project.preview ? (
-                <img
-                  src={project.preview}
-                  alt={project.title}
-                  className="w-full h-56 object-cover rounded-lg mb-4 shadow-lg"
-                />
-              ) : (
-                <div className="w-full h-56 flex items-center justify-center bg-gray-700 rounded-lg mb-4 shadow-lg">
-                  <span className="text-gray-400">No Image Available</span>
-                </div>
-              )}
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }} // Initial state
+            animate={{ opacity: 1, y: 0 }} // Animate to these values
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Delay based on index
+          >
+            <PinContainer title={project.title}>
+              <div className="w-full h-full p-2 flex flex-col justify-between rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                {/* Project Image or Placeholder */}
+                {project.preview ? (
+                  <img
+                    src={project.preview}
+                    alt={project.title}
+                    className="w-full h-56 object-cover rounded-lg mb-4 shadow-lg"
+                  />
+                ) : (
+                  <div className="w-full h-56 flex items-center justify-center bg-gray-700 rounded-lg mb-4 shadow-lg">
+                    <span className="text-gray-400">No Image Available</span>
+                  </div>
+                )}
 
-              <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
+                <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
 
-              <p className="text-gray-200 mb-4 line-clamp-3 overflow-hidden max-h-16">
-                {project.description}
-              </p>
+                <p className="text-gray-200 mb-4 line-clamp-3 overflow-hidden max-h-16">
+                  {project.description}
+                </p>
 
-              {project.source ? (
-                <a
-                  href={project.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300"
-                  aria-label={`GitHub link for ${project.title}`}
-                >
-                  Check More <FaArrowRight />
-                </a>
-              ) : (
-                <p className="text-gray-400">Source not available</p>
-              )}
-            </div>
-          </PinContainer>
+                {project.source ? (
+                  <a
+                    href={project.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300"
+                    aria-label={`GitHub link for ${project.title}`}
+                  >
+                    Check More <FaArrowRight />
+                  </a>
+                ) : (
+                  <p className="text-gray-400">Source not available</p>
+                )}
+              </div>
+            </PinContainer>
+          </motion.div>
         ))}
       </div>
     </section>

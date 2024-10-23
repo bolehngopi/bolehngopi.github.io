@@ -5,42 +5,65 @@ import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { LuExternalLink } from "react-icons/lu";
 
+// Debounce function for performance optimization
+const debounce = (func, delay) => {
+  let timer;
+  return (...args) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
 const Navbar = () => {
   const [active, setActive] = useState("hero");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navbarRef = useRef(null);
 
-  const handleScroll = useCallback(() => {
-    const navbarHeight = navbarRef.current?.offsetHeight || 0;
-    const scrollPosition = window.scrollY + navbarHeight;
+  const handleScroll = useCallback(
+    debounce(() => {
+      const navbarHeight = navbarRef.current?.offsetHeight || 0;
+      const scrollPosition = window.scrollY + navbarHeight;
 
-    navLinks.forEach((link) => {
-      const section = document.getElementById(link.id);
-      if (section) {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
+      navLinks.forEach((link) => {
+        const section = document.getElementById(link.id);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
 
-        if (
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionTop + sectionHeight &&
-          active !== link.id
-        ) {
-          setActive(link.id);
+          if (
+            scrollPosition >= sectionTop &&
+            scrollPosition < sectionTop + sectionHeight &&
+            active !== link.id
+          ) {
+            setActive(link.id);
+          }
         }
-      }
-    });
+      });
 
-    const hasScrolled = window.scrollY > 50;
-    if (scrolled !== hasScrolled) {
-      setScrolled(hasScrolled);
-    }
-  }, [active, scrolled]);
+      const hasScrolled = window.scrollY > 50;
+      if (scrolled !== hasScrolled) {
+        setScrolled(hasScrolled);
+      }
+    }, 100),
+    [active, scrolled]
+  );
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  // Handle scroll lock when the mobile menu is open
+  useEffect(() => {
+    if (toggle) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [toggle]);
 
   const memoizedNavLinks = useMemo(
     () =>
@@ -69,6 +92,21 @@ const Navbar = () => {
     [active]
   );
 
+  const handleOutsideClick = (e) => {
+    if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+      setToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    if (toggle) {
+      document.addEventListener("click", handleOutsideClick);
+    } else {
+      document.removeEventListener("click", handleOutsideClick);
+    }
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, [toggle]);
+
   return (
     <nav
       ref={navbarRef}
@@ -77,14 +115,15 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center">
-
           <h1 className="text-white text-lg sm:text-xl font-bold ml-2 sm:ml-3">
             Aziz Khasyi
           </h1>
         </div>
 
+        {/* Desktop Navigation Links */}
         <div className="hidden sm:flex">{memoizedNavLinks}</div>
 
+        {/* Mobile Menu Button */}
         <button
           className="sm:hidden text-white focus:outline-none ml-auto"
           onClick={() => setToggle((prev) => !prev)}
@@ -99,6 +138,7 @@ const Navbar = () => {
         </button>
       </div>
 
+      {/* Mobile Menu Overlay */}
       {toggle && (
         <div
           className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
@@ -107,9 +147,11 @@ const Navbar = () => {
         />
       )}
 
+      {/* Mobile Navigation Links */}
       <div
         className={`fixed top-0 right-0 w-3/4 max-w-xs h-full bg-black text-white p-6 z-40 transform transition-transform duration-300 ease-in-out ${toggle ? "translate-x-0" : "translate-x-full"
           }`}
+        aria-hidden={!toggle}
       >
         <div className="flex flex-col items-center gap-4 mt-6">
           {navLinks.map((link) => {

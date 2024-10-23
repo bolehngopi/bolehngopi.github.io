@@ -6,6 +6,7 @@ import { Suspense, useEffect, useState, useRef } from "react";
 import { FaGithub, FaLinkedin, FaArrowDown } from "react-icons/fa";
 import ShirokoCanvas from "./ShirokoCanvas";
 import * as THREE from "three";
+import { motion } from "framer-motion"; // Import Framer Motion
 
 // Starry Background Component with Full 360° Distribution and Random Colors
 const Stars = () => {
@@ -121,24 +122,37 @@ const Hero = () => {
 
       {/* Hero Content Overlay */}
       <div className="relative z-10 flex flex-col items-center gap-6 select-none">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-white">
+        <motion.h1 
+          className="text-4xl md:text-6xl font-extrabold text-white"
+          initial={{ opacity: 0, y: -50 }} // Initial position and opacity
+          animate={{ opacity: 1, y: 0 }} // Final position and opacity
+          transition={{ duration: 0.8 }} // Animation duration
+        >
           Hi, I&apos;m{" "}
           <span className="text-primary animate-glow">Aziz Khasyi</span>
-        </h1>
+        </motion.h1>
 
-        <h2 className="text-2xl md:text-3xl text-secondary mt-2 h-8 text-white/70">
+        <motion.h2 
+          className="text-2xl md:text-3xl text-secondary mt-2 h-8 text-white/70"
+          initial={{ opacity: 0, y: -30 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.8, delay: 0.2 }} // Slight delay for the second line
+        >
           {text}
           <span className="animate-blink">|</span>
-        </h2>
+        </motion.h2>
 
         {/* Animated Down Arrow CTA */}
-        <a
+        <motion.a
           href="#about"
           className="text-white mt-10 text-4xl animate-bounce"
           aria-label="Scroll Down"
+          initial={{ opacity: 0, scale: 0 }} // Initial scale and opacity
+          animate={{ opacity: 1, scale: 1 }} // Final scale and opacity
+          transition={{ duration: 0.5, delay: 0.4 }} // Delay for arrow animation
         >
           <FaArrowDown />
-        </a>
+        </motion.a>
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       {/* <Head /> */}
       <body
-        className={`${montserrat.className} antialiased `}
+        className={`${montserrat.className} antialiased bg-gradient-to-b from-slate-900 to-black`}
       >
         {children}
       </body>

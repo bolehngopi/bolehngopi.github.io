@@ -49,7 +49,7 @@ const About = () => {
           </a>
 
           <a
-            href="https://x.com"
+            href="https://x.com/kasurtrbang"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:text-blue-300 transition-transform transform hover:scale-110"
