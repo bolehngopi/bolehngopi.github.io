@@ -22,7 +22,7 @@ const Experience: React.FC = () => {
       {/* Static Background Decoration */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="w-72 h-72 bg-gradient-to-r from-purple-400 to-blue-500 rounded-full blur-[150px] opacity-40 absolute top-16 left-1/4"></div>
-        <div className="w-80 h-80 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-[150px] opacity-40 absolute bottom-16 right-1/4"></div>
+        <div className="w-80 h-80 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-[150px] opacity-40 absolute bottom-[8rem] right-1/4"></div>
       </div>
 
       {/* Content with Framer Motion Animations */}

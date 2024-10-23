@@ -52,13 +52,15 @@ const Contact: React.FC = () => {
       id="contact"
       className="min-h-screen relative bg-black py-16 px-4 md:px-8 text-white flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Background Decorations */}
       <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Gradient background */}
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-gray-900 to-black opacity-80"></div>
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-48 h-48 sm:w-72 lg:w-96 rounded-full bg-blue-600 opacity-30 blur-xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-72 rounded-full bg-pink-500 opacity-30 blur-xl"></div>
 
-        {/* Floating Particles */}
+        {/* Glowing circles */}
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full bg-blue-600 opacity-30 blur-xl sm:blur-2xl lg:blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-pink-500 opacity-30 blur-xl sm:blur-2xl"></div>
+
+        {/* Floating particles */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div
             className="w-2 h-2 bg-white opacity-20 rounded-full absolute animate-pulse"
