@@ -6,7 +6,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
       <Navbar />
@@ -18,4 +18,6 @@ export default function Home() {
       <Footer />
     </>
   );
-}
+};
+
+export default Home;

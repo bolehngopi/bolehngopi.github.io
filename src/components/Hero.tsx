@@ -1,49 +1,47 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { Suspense, useEffect, useState, useRef } from "react";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Suspense, useEffect, useState, useRef, useCallback } from "react";
 import { FaGithub, FaLinkedin, FaArrowDown } from "react-icons/fa";
-import ShirokoCanvas from "./ShirokoCanvas";
 import * as THREE from "three";
-import { motion } from "framer-motion"; // Import Framer Motion
+import { motion } from "framer-motion";
+import ShirokoCanvas from "./ShirokoCanvas";
 
-// Starry Background Component with Full 360° Distribution and Random Colors
-const Stars = () => {
-  const points = useRef();
+// Starry Background Component
+const Stars: React.FC = () => {
+  const points = useRef<THREE.Points>(null);
 
-  // Generate stars in a spherical 360° distribution
   const [positions] = useState(() => {
-    const temp = [];
-    const numStars = 500; // Adjust the number of stars as needed
-
+    const temp: number[] = [];
+    const numStars = 300; // Reduced stars for better performance
     for (let i = 0; i < numStars; i++) {
-      const radius = 100; // Adjust the radius of the sphere
-      const theta = Math.random() * Math.PI * 2; // Random angle around the sphere
-      const phi = Math.acos((Math.random() * 2) - 1); // Random polar angle
-
+      const radius = 80;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
       const x = radius * Math.sin(phi) * Math.cos(theta);
       const y = radius * Math.sin(phi) * Math.sin(theta);
       const z = radius * Math.cos(phi);
-
       temp.push(x, y, z);
     }
     return new Float32Array(temp);
   });
 
   const [colors] = useState(() => {
-    const colorArray = [];
-    for (let i = 0; i < 500; i++) {
-      const color = new THREE.Color(`hsl(${Math.random() * 360}, 100%, 75%)`); // Random pastel colors
+    const colorArray: number[] = [];
+    for (let i = 0; i < 300; i++) {
+      const color = new THREE.Color(`hsl(${Math.random() * 360}, 100%, 75%)`);
       colorArray.push(color.r, color.g, color.b);
     }
     return new Float32Array(colorArray);
   });
 
   useFrame(({ clock }) => {
-    const elapsed = clock.getElapsedTime();
-    points.current.rotation.x = elapsed * 0.05;
-    points.current.rotation.y = elapsed * 0.05;
+    if (points.current) {
+      const elapsed = clock.getElapsedTime();
+      points.current.rotation.x = elapsed * 0.02;
+      points.current.rotation.y = elapsed * 0.02;
+    }
   });
 
   return (
@@ -62,21 +60,16 @@ const Stars = () => {
           count={colors.length / 3}
         />
       </bufferGeometry>
-      <pointsMaterial
-        vertexColors
-        size={1} // Adjust the size of stars
-        sizeAttenuation
-      />
+      <pointsMaterial vertexColors size={0.8} sizeAttenuation />
     </points>
   );
 };
 
-const Hero = () => {
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const phrases = ["Web Developer", "Tech Enthusiast"];
+// Typewriter Effect Optimized
+const useTypewriter = (phrases: string[]) => {
+  const [text, setText] = useState<string>("");
+  const [index, setIndex] = useState<number>(0);
 
-  // Typewriter Effect
   useEffect(() => {
     const currentPhrase = phrases[index % phrases.length];
     const timeout = setTimeout(
@@ -86,70 +79,72 @@ const Hero = () => {
             ? currentPhrase.slice(0, prev.length + 1)
             : ""
         );
-
-        if (text === "") {
-          setIndex((prev) => prev + 1);
-        }
+        if (text === "") setIndex((prev) => prev + 1);
       },
-      text === currentPhrase ? 1500 : 150
+      text === currentPhrase ? 1200 : 100
     );
 
     return () => clearTimeout(timeout);
-  }, [text, index]);
+  }, [text, index, phrases]);
+
+  return text;
+};
+
+const Hero: React.FC = () => {
+  const text = useTypewriter(["Web Developer", "Tech Enthusiast"]);
 
   return (
     <section
       id="hero"
       className="min-h-screen relative flex flex-col items-center justify-center text-center bg-gradient-to-b from-slate-900 via-gray-900 to-black overflow-hidden"
     >
-      {/* 3D Background Canvas */}
+      {/* 3D Canvas Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas gl={{ preserveDrawingBuffer: true }}>
-          {/* Lighting */}
-          <ambientLight intensity={1} />
+        <Canvas
+          gl={{ antialias: true }}
+          dpr={[1, 2]}
+          camera={{ position: [0, 0, 5] }}
+        >
+          <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
-
-          {/* Particle System (Stars) */}
           <Suspense fallback={null}>
             <Stars />
             <ShirokoCanvas />
           </Suspense>
-
-          {/* Controls for Rotation */}
-          <OrbitControls enableZoom={false} />
+          <OrbitControls enableZoom={false} enablePan={false} />
         </Canvas>
       </div>
 
-      {/* Hero Content Overlay */}
+      {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center gap-6 select-none">
-        <motion.h1 
+        <motion.h1
           className="text-4xl md:text-6xl font-extrabold text-white"
-          initial={{ opacity: 0, y: -50 }} // Initial position and opacity
-          animate={{ opacity: 1, y: 0 }} // Final position and opacity
-          transition={{ duration: 0.8 }} // Animation duration
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
           Hi, I&apos;m{" "}
           <span className="text-primary animate-glow">Aziz Khasyi</span>
         </motion.h1>
 
-        <motion.h2 
+        <motion.h2
           className="text-2xl md:text-3xl text-secondary mt-2 h-8 text-white/70"
-          initial={{ opacity: 0, y: -30 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.8, delay: 0.2 }} // Slight delay for the second line
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           {text}
           <span className="animate-blink">|</span>
         </motion.h2>
 
-        {/* Animated Down Arrow CTA */}
+        {/* Call to Action Arrow */}
         <motion.a
           href="#about"
           className="text-white mt-10 text-4xl animate-bounce"
           aria-label="Scroll Down"
-          initial={{ opacity: 0, scale: 0 }} // Initial scale and opacity
-          animate={{ opacity: 1, scale: 1 }} // Final scale and opacity
-          transition={{ duration: 0.5, delay: 0.4 }} // Delay for arrow animation
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
           <FaArrowDown />
         </motion.a>

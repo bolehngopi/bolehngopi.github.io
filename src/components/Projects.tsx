@@ -1,11 +1,18 @@
 "use client";
 
-import { FaArrowRight, FaGithub } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { useState } from "react";
 import { projects } from "@/data"; // Assuming you have the project data in /data
 import { motion } from "framer-motion"; // Import Framer Motion
 
-const Projects = () => {
+interface Project {
+  title: string;
+  description: string;
+  preview?: string;
+  source?: string;
+}
+
+const Projects: React.FC = () => {
   return (
     <section
       id="projects"
@@ -16,12 +23,13 @@ const Projects = () => {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-6xl">
-        {projects.map((project, index) => (
+        {projects.map((project: Project, index: number) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 20 }} // Initial state
-            animate={{ opacity: 1, y: 0 }} // Animate to these values
-            transition={{ duration: 0.5, delay: index * 0.1 }} // Delay based on index
+            whileInView={{ opacity: 1, y: 0 }} // Animates when in view
+            initial={{ opacity: 0, y: 50 }} // Initial off-screen position
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Stagger animation
+            viewport={{ once: true, amount: 0.3 }} // Animates only once when 30% in view
           >
             <PinContainer title={project.title}>
               <div className="w-full h-full p-2 flex flex-col justify-between rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -69,13 +77,20 @@ const Projects = () => {
 export default Projects;
 
 // PinContainer Component
-export const PinContainer = ({
+interface PinContainerProps {
+  children: React.ReactNode;
+  title: string;
+  className?: string;
+  containerClassName?: string;
+}
+
+export const PinContainer: React.FC<PinContainerProps> = ({
   children,
   title,
   className,
   containerClassName,
 }) => {
-  const [transform, setTransform] = useState("rotateX(0deg) scale(1)");
+  const [transform, setTransform] = useState<string>("rotateX(0deg) scale(1)");
 
   const onMouseEnter = () => {
     setTransform("rotateX(20deg) scale(0.95)");

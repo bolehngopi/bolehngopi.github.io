@@ -22,15 +22,16 @@ export const navLinks = [
   {
     title: "Blog",
     link: "https://bolehngopi.github.io/myblog",
-  }
+  },
 ];
 
 export const experience = [
   {
-    title: "1st Winner of Web Technologies Student Competency Competition at Central Jakarta City Level 2024",
+    title:
+      "1st Winner of Web Technologies Student Competency Competition at Central Jakarta City Level 2024",
     date: "2024",
   },
-]
+];
 
 export const projects = [
   {
@@ -54,4 +55,4 @@ export const projects = [
     preview: "/images/sipendi.png",
     source: "https://sipendi.multitalenta.id/",
   },
-]
+];

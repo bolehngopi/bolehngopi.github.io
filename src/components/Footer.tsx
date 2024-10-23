@@ -1,9 +1,10 @@
 "use client";
 
+import React from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-gradient-to-t bg-black text-white py-6 border-t-white border-t">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
@@ -17,6 +18,7 @@ const Footer = () => {
         {/* Social Links */}
         <div className="flex gap-6">
           <a
+            title="GitHub"
             href="https://github.com/bolehngopi"
             target="_blank"
             rel="noopener noreferrer"
@@ -25,6 +27,7 @@ const Footer = () => {
             <FaGithub />
           </a>
           <a
+            title="LinkedIn"
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
@@ -33,6 +36,7 @@ const Footer = () => {
             <FaLinkedin />
           </a>
           <a
+            title="Twitter"
             href="https://x.com/kasurtrbang"
             target="_blank"
             rel="noopener noreferrer"

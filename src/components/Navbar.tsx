@@ -6,9 +6,9 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { LuExternalLink } from "react-icons/lu";
 
 // Debounce function for performance optimization
-const debounce = (func, delay) => {
-  let timer;
-  return (...args) => {
+const debounce = (func: Function, delay: number) => {
+  let timer: NodeJS.Timeout;
+  return (...args: any[]) => {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       func(...args);
@@ -16,11 +16,11 @@ const debounce = (func, delay) => {
   };
 };
 
-const Navbar = () => {
-  const [active, setActive] = useState("hero");
-  const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const navbarRef = useRef(null);
+const Navbar: React.FC = () => {
+  const [active, setActive] = useState<string>("hero");
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const navbarRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = useCallback(
     debounce(() => {
@@ -58,11 +58,7 @@ const Navbar = () => {
 
   // Handle scroll lock when the mobile menu is open
   useEffect(() => {
-    if (toggle) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = toggle ? "hidden" : "auto";
   }, [toggle]);
 
   const memoizedNavLinks = useMemo(
@@ -73,27 +69,26 @@ const Navbar = () => {
         return (
           <a
             key={link.title}
-            href={isExternal ? link.link : `#${link.id}`}
+            href={isExternal ? link.link : `#${link.id}`} // Corrected template literal
             target={isExternal ? "_blank" : "_self"}
             rel={isExternal ? "noopener noreferrer" : undefined}
-            className={`${active === link.id
-              ? "text-white"
-              : "text-slate-500 hover:text-white/50"
-              } text-sm font-medium ml-6 transition-colors duration-300 inline-flex items-center gap-1 relative group`}
+            className={`${
+              active === link.id
+                ? "text-white"
+                : "text-slate-500 hover:text-white/50"
+            } text-sm font-medium ml-6 transition-colors duration-300 inline-flex items-center gap-1 relative group`}
             aria-current={active === link.id ? "page" : undefined}
           >
             {link.title} {isExternal && <LuExternalLink />}
-            <span
-              className="absolute bottom-[-2px] left-0 w-full h-[2px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-            />
+            <span className="absolute bottom-[-2px] left-0 w-full h-[2px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </a>
         );
       }),
     [active]
   );
 
-  const handleOutsideClick = (e) => {
-    if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (navbarRef.current && !navbarRef.current.contains(e.target as Node)) {
       setToggle(false);
     }
   };
@@ -110,8 +105,9 @@ const Navbar = () => {
   return (
     <nav
       ref={navbarRef}
-      className={`w-full fixed z-40 p-4 px-6 transition-all duration-300 ${scrolled ? "bg-black/80 shadow-md" : "bg-transparent"
-        } pointer-events-auto`}
+      className={`w-full fixed z-40 p-4 px-6 transition-all duration-300 ${
+        scrolled ? "bg-black/80 shadow-md" : "bg-transparent"
+      } pointer-events-auto`}
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center">
@@ -127,7 +123,7 @@ const Navbar = () => {
         <button
           className="sm:hidden text-white focus:outline-none ml-auto"
           onClick={() => setToggle((prev) => !prev)}
-          aria-expanded={toggle}
+          aria-expanded={toggle ? "true" : "false"} // Corrected to return strings
           aria-label="Toggle navigation"
         >
           {toggle ? (
@@ -149,8 +145,9 @@ const Navbar = () => {
 
       {/* Mobile Navigation Links */}
       <div
-        className={`fixed top-0 right-0 w-3/4 max-w-xs h-full bg-black text-white p-6 z-40 transform transition-transform duration-300 ease-in-out ${toggle ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 w-3/4 max-w-xs h-full bg-black text-white p-6 z-40 transform transition-transform duration-300 ease-in-out ${
+          toggle ? "translate-x-0" : "translate-x-full"
+        }`}
         aria-hidden={!toggle}
       >
         <div className="flex flex-col items-center gap-4 mt-6">
@@ -160,17 +157,16 @@ const Navbar = () => {
             return (
               <a
                 key={link.title}
-                href={isExternal ? link.link : `#${link.id}`}
+                href={isExternal ? link.link : `#${link.id}`} // Corrected template literal
                 target={isExternal ? "_blank" : "_self"}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className={`${active === link.id ? "text-white" : "text-slate-500"
-                  } text-lg font-medium inline-flex items-center gap-2 relative group`}
+                className={`${
+                  active === link.id ? "text-white" : "text-slate-500"
+                } text-lg font-medium inline-flex items-center gap-2 relative group`}
                 onClick={() => setToggle(false)}
               >
                 {link.title} {isExternal && <LuExternalLink />}
-                <span
-                  className="absolute bottom-[-2px] left-0 w-full h-[2px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                />
+                <span className="absolute bottom-[-2px] left-0 w-full h-[2px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </a>
             );
           })}
