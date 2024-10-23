@@ -77,11 +77,7 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center">
-          <img
-            src="/logo.svg"
-            alt="Logo"
-            className="w-8 h-8 sm:w-10 sm:h-10"
-          />
+
           <h1 className="text-white text-lg sm:text-xl font-bold ml-2 sm:ml-3">
             Aziz Khasyi
           </h1>
