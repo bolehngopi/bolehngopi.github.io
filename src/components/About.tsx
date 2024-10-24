@@ -57,7 +57,7 @@ const About: React.FC = () => {
           className="text-lg leading-relaxed max-w-2xl mx-auto transition-opacity duration-500 hover:opacity-90"
           variants={item}
         >
-          Hi, I'm <span className="text-primary font-bold">Aziz Khasyi</span>, a
+          Hi, I&apos;m <span className="text-primary font-bold">Aziz Khasyi</span>, a
           passionate developer who enjoys building sleek, functional web
           applications. I merge design and technology to craft projects that
           engage users and look amazing.
@@ -107,7 +107,7 @@ const About: React.FC = () => {
           whileTap={{ scale: 0.95 }}
           variants={item}
         >
-          Let's Collaborate
+          Let&apos;s Collaborate
         </motion.a>
       </motion.div>
     </section>

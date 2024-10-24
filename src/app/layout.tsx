@@ -13,14 +13,17 @@ export const metadata: Metadata = {
   keywords:
     "Aziz Khasyi, BolehNgopi, web developer, portfolio, projects, tech enthusiast, JavaScript, React, web design",
   openGraph: {
+    images: "https://bolehngopi.vercel.app/api/og",
     title: "BolehNgopi - Portfolio",
     description:
       "A showcase of projects and technologies by Aziz Khasyi, web developer and tech enthusiast.",
-    url: "https://bolehngopi.github.io", // Update with actual URL
+    url: "https://bolehngopi.vercel.app/", // Update with actual URL
     type: "website",
     locale: "en_US",
+    siteName: "Aziz Khasyi",
   },
   twitter: {
+    images: "https://bolehngopi.vercel.app/api/og",
     card: "summary_large_image",
     site: "@bolehngopi", // Update with actual Twitter handle
     title: "BolehNgopi - Portfolio of Aziz Khasyi",
