@@ -14,7 +14,7 @@ const Stars: React.FC = () => {
 
   const [positions] = useState(() => {
     const temp: number[] = [];
-    const numStars = 300; // Reduced stars for better performance
+    const numStars = 250;
     for (let i = 0; i < numStars; i++) {
       const radius = 80;
       const theta = Math.random() * Math.PI * 2;
@@ -60,7 +60,7 @@ const Stars: React.FC = () => {
           count={colors.length / 3}
         />
       </bufferGeometry>
-      <pointsMaterial vertexColors size={0.8} sizeAttenuation />
+      <pointsMaterial vertexColors size={3} sizeAttenuation />
     </points>
   );
 };
