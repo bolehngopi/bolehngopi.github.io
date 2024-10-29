@@ -3,7 +3,7 @@ import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
 // export const runtime = "edge"; // Use Edge runtime for faster response times
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
