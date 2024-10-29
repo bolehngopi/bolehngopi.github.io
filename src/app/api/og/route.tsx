@@ -1,17 +1,15 @@
-// app/api/og/route.ts
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
-// export const runtime = "edge"; // Use Edge runtime for faster response times
-// export const dynamic = "force-dynamic";
+export const runtime = "edge"; // Use Edge runtime for faster response times
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
 
+  const { searchParams } = new URL(req.url);
   const title = searchParams.get("title") || "Welcome to My Portofolio";
   const subtitle = searchParams.get("subtitle") || "Crafted with passion";
   const author = searchParams.get("author") || "Aziz Khasyi";
-
+  
   return new ImageResponse(
     (
       <div
@@ -66,7 +64,6 @@ export async function GET(req: NextRequest) {
             }}
           />
         </div>
-
         {/* Content */}
         <h1
           style={{
