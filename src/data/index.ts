@@ -55,4 +55,11 @@ export const projects = [
     preview: "/images/sipendi.png",
     source: "https://sipendi.multitalenta.id/",
   },
+  {
+    title: "Shoit",
+    description: "A FPS Test game.",
+    techStack: ["Unity", "C#"],
+    preview: "/images/shoit.png",
+    source: "https://github.com/bolehngopi/Shoi",
+  },
 ];
